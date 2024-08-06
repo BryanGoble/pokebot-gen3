@@ -28,8 +28,8 @@ def run_frlg() -> Generator:
     starter_choice = ask_for_choice(
         [
             Selection("Bulbasaur", get_sprites_path() / "pokemon" / "normal" / "Bulbasaur.png"),
-            Selection("Charmander", get_sprites_path() / "pokemon" / "normal" / "Charmander.png"),
             Selection("Squirtle", get_sprites_path() / "pokemon" / "normal" / "Squirtle.png"),
+            Selection("Charmander", get_sprites_path() / "pokemon" / "normal" / "Charmander.png"),
             Selection("Random", get_sprites_path() / "pokemon" / "normal" / "Unown (qm).png"),
         ],
         window_title="Select a starter...",
@@ -41,14 +41,14 @@ def run_frlg() -> Generator:
         yield from soft_reset(mash_random_keys=True)
         starter = starter_choice
         if starter == "Random":
-            starter = random.choice(["Bulbasaur", "Charmander", "Squirtle"])
+            starter = random.choice(["Bulbasaur", "Squirtle", "Charmander"])
         match starter:
             case "Bulbasaur":
                 yield from navigate_to(map=MapFRLG.PALLET_TOWN_PROFESSOR_OAKS_LAB, coordinates=(8, 5))
-            case "Charmander":
-                yield from navigate_to(map=MapFRLG.PALLET_TOWN_PROFESSOR_OAKS_LAB, coordinates=(10, 5))
             case "Squirtle":
                 yield from navigate_to(map=MapFRLG.PALLET_TOWN_PROFESSOR_OAKS_LAB, coordinates=(9, 5))
+            case "Charmander":
+                yield from navigate_to(map=MapFRLG.PALLET_TOWN_PROFESSOR_OAKS_LAB, coordinates=(10, 5))
         yield from ensure_facing_direction("Up")
         yield from wait_for_unique_rng_value()
 
@@ -134,9 +134,9 @@ def run_rse_hoenn() -> Generator:
 def run_rse_johto():
     starter_choice = ask_for_choice(
         [
-            Selection("Chikorita", get_sprites_path() / "pokemon" / "normal" / "Chikorita.png"),
             Selection("Cyndaquil", get_sprites_path() / "pokemon" / "normal" / "Cyndaquil.png"),
             Selection("Totodile", get_sprites_path() / "pokemon" / "normal" / "Totodile.png"),
+            Selection("Chikorita", get_sprites_path() / "pokemon" / "normal" / "Chikorita.png"),
             Selection("Random", get_sprites_path() / "pokemon" / "normal" / "Unown (qm).png"),
         ],
         window_title="Select a starter...",
@@ -148,14 +148,14 @@ def run_rse_johto():
         yield from soft_reset(mash_random_keys=True)
         starter = starter_choice
         if starter == "Random":
-            starter = random.choice(["Chikorita", "Cyndaquil", "Totodile"])
+            starter = random.choice(["Cyndaquil", "Totodile", "Chikorita"])
         match starter:
-            case "Chikorita":
-                yield from navigate_to(map=MapRSE.LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, coordinates=(10, 5))
             case "Cyndaquil":
                 yield from navigate_to(map=MapRSE.LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, coordinates=(8, 5))
             case "Totodile":
                 yield from navigate_to(map=MapRSE.LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, coordinates=(9, 5))
+            case "Chikorita":
+                yield from navigate_to(map=MapRSE.LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB, coordinates=(10, 5))
 
         if len(get_party()) >= 6:
             raise BotModeError("This mode requires at least one empty party slot, but your party is full.")
